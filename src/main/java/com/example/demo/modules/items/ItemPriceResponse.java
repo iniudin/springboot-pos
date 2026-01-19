@@ -6,15 +6,17 @@ import lombok.Builder;
 
 @Builder
 public record ItemPriceResponse(
-  Long id,
-  Double price,
-  LocalDateTime effectiveDate
-) {
-  public static ItemPriceResponse fromEntity(ItemPrice itemPrice) {
-    return ItemPriceResponse.builder()
-      .id(itemPrice.getId())
-      .price(itemPrice.getPrice())
-      .effectiveDate(itemPrice.getEffectiveDate())
-      .build();
-  }
+        Long id,
+        Long itemId,
+        Double price,
+        LocalDateTime effectiveDate) {
+
+    public static ItemPriceResponse fromEntity(ItemPrice itemPrice) {
+        return ItemPriceResponse.builder()
+                .id(itemPrice.getId())
+                .itemId(itemPrice.getItem().getId())
+                .price(itemPrice.getPrice())
+                .effectiveDate(itemPrice.getEffectiveDate())
+                .build();
+    }
 }

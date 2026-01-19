@@ -29,21 +29,21 @@ import jakarta.persistence.Table;
 @SQLDelete(sql = "UPDATE orders SET is_deleted = true WHERE id = ?")
 @SQLRestriction("is_deleted = false")
 public class Order extends BaseEntity {
-  @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
-  @Builder.Default
-  private List<OrderItem> orderItems = new ArrayList<>();
-  private String customer;
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    private List<OrderItem> orderItems = new ArrayList<>();
+    private String customer;
 
-  public void addOrderItem(OrderItem orderItem) {
-    orderItems.add(orderItem);
-  }
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+    }
 
-  public void removeOrderItem(OrderItem orderItem) {
-    orderItems.remove(orderItem);
-  }
+    public void removeOrderItem(OrderItem orderItem) {
+        orderItems.remove(orderItem);
+    }
 
-  public String getCustomer() {
-    return this.customer;
-  }
+    public String getCustomer() {
+        return this.customer;
+    }
 
 }

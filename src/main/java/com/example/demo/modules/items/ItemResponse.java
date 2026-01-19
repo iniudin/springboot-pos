@@ -1,26 +1,22 @@
 package com.example.demo.modules.items;
 
-import java.util.List;
-
 import lombok.Builder;
 
 @Builder
 public record ItemResponse(
-  Long id,
-  String name,
-  String description,
-  List<ItemPriceResponse> prices
-) {
+        Long id,
+        String name,
+        String description,
+        ItemPriceResponse price) {
 
-  public static ItemResponse fromEntity(Item item) {
-    return ItemResponse.builder()
-      .id(item.getId())
-      .name(item.getName())
-      .description(item.getDescription())
-      .prices(item.getPrices()
-        .stream()
-        .map(ItemPriceResponse::fromEntity)
-        .toList())
-      .build();
-  }
+    public static ItemResponse fromEntity(Item item) {
+        ItemPrice currentPrice = item.getCurrentPrice();
+        ItemPriceResponse priceResponse = currentPrice != null ? ItemPriceResponse.fromEntity(currentPrice) : null;
+        return ItemResponse.builder()
+                .id(item.getId())
+                .name(item.getName())
+                .description(item.getDescription())
+                .price(priceResponse)
+                .build();
+    }
 }

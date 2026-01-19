@@ -11,37 +11,52 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 @RestController
 @RequestMapping("/items")
+@Tag(name = "Items", description = "Items management")
 public class ItemController {
-  private final ItemService itemService;
+    private final ItemService itemService;
 
-  public ItemController(ItemService itemService) {
-    this.itemService = itemService;
-  }
+    public ItemController(ItemService itemService) {
+        this.itemService = itemService;
+    }
 
-  @GetMapping
-  public List<ItemResponse> getItems() {
-    return itemService.getItems();
-  }
+    @Operation(summary = "Get all items")
+    @GetMapping
+    public List<ItemResponse> getItems() {
+        return itemService.getItems();
+    }
 
-  @GetMapping("/{id}")
-  public ItemResponse getItemById(@PathVariable Long id) {
-    return itemService.getItemById(id);
-  }
+    @Operation(summary = "Get item by id")
+    @GetMapping("/{id}")
+    public ItemResponse getItemById(@PathVariable Long id) {
+        return itemService.getItemById(id);
+    }
 
-  @PostMapping
-  public ItemResponse createItem(@RequestBody ItemRequest itemRequest) {
-    return itemService.createItem(itemRequest);
-  }
+    @Operation(summary = "Create item")
+    @PostMapping
+    public ItemResponse createItem(@RequestBody ItemRequest itemRequest) {
+        return itemService.createItem(itemRequest);
+    }
 
-  @PutMapping("/{id}")
-  public ItemResponse updateItem(@PathVariable Long id, @RequestBody ItemRequest itemRequest) {
-    return itemService.updateItem(id, itemRequest);
-  }
+    @Operation(summary = "Update item")
+    @PutMapping("/{id}")
+    public ItemResponse updateItem(@PathVariable Long id, @RequestBody ItemRequest itemRequest) {
+        return itemService.updateItem(id, itemRequest);
+    }
 
-  @DeleteMapping("/{id}")
-  public void deleteItem(@PathVariable Long id) {
-    itemService.deleteItem(id);
-  }
+    @Operation(summary = "Update item price")
+    @PutMapping("/{id}/price")
+    public ItemResponse updateItemPrice(@PathVariable Long id, @RequestBody ItemPriceRequest itemPriceRequest) {
+        return itemService.updateItemPrice(id, itemPriceRequest);
+    }
+
+    @Operation(summary = "Delete item")
+    @DeleteMapping("/{id}")
+    public void deleteItem(@PathVariable Long id) {
+        itemService.deleteItem(id);
+    }
 }

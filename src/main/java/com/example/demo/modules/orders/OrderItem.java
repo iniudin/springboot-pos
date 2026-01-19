@@ -27,14 +27,14 @@ import jakarta.persistence.Table;
 @SQLDelete(sql = "UPDATE order_items SET is_deleted = true WHERE id = ?")
 @SQLRestriction("is_deleted = false")
 public class OrderItem extends BaseEntity {
-  @ManyToOne
-  @JoinColumn(name = "order_id")
-  private Order order;
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
 
-  @ManyToOne
-  @JoinColumn(name = "item_id")
-  private Item item;
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
 
-  @Column(name = "quantity")
-  private Integer quantity;
+    @Column(name = "quantity")
+    private Integer quantity;
 }
